@@ -19,8 +19,7 @@ body  {
     box-shadow: 0 0 50px  rgb(51, 51, 228);
     transition: all 1s ease;
 }
-
-/** test*/
+/*just for test , you can add this animetion after the ball touch the edge */
 .test {
     
     box-shadow: 0 0 200px  rgb(51, 51, 228);
@@ -67,5 +66,15 @@ img {
     height: 10vw;
     display: flex;
     justify-content: space-around;
+    align-items: center;
+}
+
+
+footer {
+    background-color: black;
+    width: 100%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
