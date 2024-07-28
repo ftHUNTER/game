@@ -1,11 +1,14 @@
 const canva = document.getElementsByClassName('Mycanva')[0];
 const ctx = canva.getContext("2d");
-x = canva.width / 2
-y = canva.height / 2
+BallX = canva.width / 2
+BallY = canva.height / 2
 ax = 2
 ay = 0
-r1y = 0
-r2y = 0
+p1y = canva.height / 2 - 17
+p2y = canva.height / 2 - 17
+
+
+
 
 
 
@@ -14,25 +17,37 @@ document.addEventListener('keydown', function(event) {
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown')
         event.preventDefault();
     if (event.key == 'ArrowUp') {
-        r1y -= 10;
+        if(p1y - 10 > 0)
+            p1y -= 10;
+        else
+            p1y -= p1y 
     } else if (event.key == 'ArrowDown') {
-        r1y += 10;
+        if(p1y + 34 + 10 < canva.height)
+            p1y  += 10;
+        else
+            p1y += canva.height - (p1y + 34)  
     }else if (event.key == 'w') {
-        r2y -= 10;
+        if(p2y - 10 > 0)
+            p2y -= 10;
+        else
+            p2y -= p2y 
     }else if (event.key == 's') {
-        r2y += 10;
+        if(p2y + 34 + 10 < canva.height)
+            p2y  += 10;
+        else
+            p2y += canva.height - (p2y + 34) 
     }
 });
 
 
 function game()
 {
-    x += ax
-    y += ay
+    BallX += ax
+    BallY += ay
     ctx.clearRect(0, 0, canva.width, canva.height);
     ctx.fillStyle = "black"
-    ctx.fillRect(0,r2y,4,35)
-    ctx.fillRect(canva.width - 4,r1y,4,35);
+    ctx.fillRect(0,p2y,4,35)
+    ctx.fillRect(canva.width - 4,p1y,4,35);
 
     ctx.beginPath();
 
@@ -41,21 +56,31 @@ function game()
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.arc(x,y,5,0,2*Math.PI);
+    ctx.arc(BallX,BallY,5,0,2*Math.PI);
     ctx.fillStyle = "purple"
     ctx.lineWidth = 0;
     ctx.fill();
     ctx.stroke();
-    if(x > canva.width  || x < 0  ){
+    if(BallX > canva.width  || BallX < 0  ){
         console.log("you lossssssssssssssssssssseeeeeeeeeeeeeeeeeeee")
-        x = canva.width / 2
-        y = canva.height / 2 
-    }
-    console.log("y = ", y, "r1y = " ,r1y)
-    if(y + 2  > r1y && y - 2 < r1y )
-        ax = -ax
-    if(y > canva.height - 5  || y < 0  + 5)
+        BallX = canva.width / 2
+        BallY = canva.height / 2 
+        p1y = canva.height / 2 - 17,5
+        p2y = canva.height / 2 - 17,5
         ay = 0
+    }
+    if(BallY <= p1y + 34 && BallY >= p1y && BallX > canva.width  - 10)
+    {
+        ax = -ax
+        ay = 2
+    }
+    if(BallY <= p2y + 34 && BallY >= p2y && BallX < 0  + 10)
+    {
+        ax = -ax
+        ay = 2
+    }
+    if(BallY > canva.height - 5  || BallY < 0  + 5)
+        ay = -ay
 
     requestAnimationFrame(game);
 }
